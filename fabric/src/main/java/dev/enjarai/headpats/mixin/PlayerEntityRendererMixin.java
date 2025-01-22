@@ -7,6 +7,7 @@ import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.PlayerEntityRenderer;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.util.Identifier;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -17,11 +18,11 @@ public class PlayerEntityRendererMixin {
     @Inject(
             method = "renderArm",
             at = @At(
-                    value = "INVOKE",
-                    target = "Lnet/minecraft/client/network/AbstractClientPlayerEntity;getSkinTextures()Lnet/minecraft/client/util/SkinTextures;"
+                    value = "HEAD"//,
+//                    target = "Lnet/minecraft/client/network/AbstractClientPlayerEntity;getSkinTextures()Lnet/minecraft/client/util/SkinTextures;"
             )
     )
-    private void fixFunnyAnimation(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, AbstractClientPlayerEntity player, ModelPart arm, ModelPart sleeve, CallbackInfo ci) {
-        PetRendering.fixFirstPersonAngles(player, MinecraftClient.getInstance().getRenderTickCounter().getTickDelta(true), arm, sleeve);
+    private void fixFunnyAnimation(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, Identifier skinTexture, ModelPart arm, boolean sleeveVisible, CallbackInfo ci) {
+        PetRendering.fixFirstPersonAngles(MinecraftClient.getInstance().player, MinecraftClient.getInstance().getRenderTickCounter().getTickDelta(true), arm);
     }
 }

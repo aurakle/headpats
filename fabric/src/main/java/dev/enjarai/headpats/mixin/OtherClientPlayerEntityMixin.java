@@ -18,10 +18,14 @@ public abstract class OtherClientPlayerEntityMixin extends LivingEntityMixin {
     protected void interact(PlayerEntity player, Vec3d hitPos, Hand hand, CallbackInfoReturnable<ActionResult> cir) {
         double y = hitPos.y / (getScale() * getScaleFactor());
         double height = getHeight() / (getScale() * getScaleFactor());
-        if (y > height - 0.5 && player instanceof ClientPlayerEntity clientPlayer && player.getMainHandStack().isEmpty() && squaredDistanceTo(player) < 1.5*1.5) {
+        if (y > height - 0.5
+                && player instanceof ClientPlayerEntity clientPlayer
+                && player.getMainHandStack().isEmpty()
+                && squaredDistanceTo(player) < 1.5*1.5
+                && !Headpats.PETTING_COMPONENT.get(clientPlayer).isPetting()) {
             ClientPlayNetworking.send(new PettingC2SPacket(getId()));
             Headpats.PETTING_COMPONENT.get(clientPlayer).startPetting((PlayerEntity) (Object) this);
-            cir.setReturnValue(ActionResult.SUCCESS);
+            cir.setReturnValue(ActionResult.CONSUME);
         }
     }
 }

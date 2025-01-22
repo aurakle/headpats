@@ -5,15 +5,14 @@ import dev.enjarai.headpats.net.PettingC2SPacket;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.ModInitializer;
 
-import net.fabricmc.fabric.api.attachment.v1.AttachmentRegistry;
-import net.fabricmc.fabric.api.attachment.v1.AttachmentType;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Identifier;
+import nl.enjarai.cicada.api.render.RenderStateKey;
+import nl.enjarai.cicada.api.render.RenderStateUpdateEvent;
 import org.ladysnake.cca.api.v3.component.ComponentKey;
 import org.ladysnake.cca.api.v3.component.ComponentRegistry;
 import org.ladysnake.cca.api.v3.entity.EntityComponentFactoryRegistry;
@@ -27,6 +26,10 @@ public class Headpats implements ModInitializer, ClientModInitializer, EntityCom
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
 	public static final ComponentKey<PettingComponent> PETTING_COMPONENT = ComponentRegistry.getOrCreate(id("petting"), PettingComponent.class);
+	public static final RenderStateKey<Float> PETTING_MULTIPLIER_KEY = RenderStateKey.of(id("petting_multiplier"), 0f);
+	public static final RenderStateKey<Float> PETTING_TIME_KEY = RenderStateKey.of(id("petting_time"), 0f);
+	public static final RenderStateKey<Float> PETTED_MULTIPLIER_KEY = RenderStateKey.of(id("petted_multiplier"), 0f);
+	public static final RenderStateKey<Float> PETTED_TIME_KEY = RenderStateKey.of(id("petted_time"), 0f);
 
 	@Override
 	public void onInitialize() {
@@ -36,6 +39,8 @@ public class Headpats implements ModInitializer, ClientModInitializer, EntityCom
 
 		PayloadTypeRegistry.playC2S().register(PettingC2SPacket.ID, PettingC2SPacket.PACKET_CODEC);
 		ServerPlayNetworking.registerGlobalReceiver(PettingC2SPacket.ID, PettingC2SPacket::handle);
+
+		RenderStateUpdateEvent.get(PlayerEntity.class).register(PetRendering::updateRenderState);
 	}
 
 	@Override

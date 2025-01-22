@@ -22,7 +22,7 @@ public class CameraMixin {
             at = @At(
                     value = "INVOKE",
                     target = "Lnet/minecraft/client/render/Camera;setRotation(FF)V",
-                    ordinal = 0
+                    ordinal = 1
             )
     )
     private void calculateRoll(BlockView area, Entity focusedEntity, boolean thirdPerson, boolean inverseView, float tickDelta, CallbackInfo ci) {
