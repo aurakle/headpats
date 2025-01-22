@@ -28,7 +28,7 @@ public class BipedEntityModelMixin<T extends LivingEntity> {
     }
 
     @Inject(
-            method = "setAngles(Lnet/minecraft/entity/LivingEntity;FFFFF)V",
+            method = "setAngles(Lnet/minecraft/client/render/entity/state/BipedEntityRenderState;)V",
             at = @At(
                     value = "INVOKE",
                     target = "Lnet/minecraft/client/model/ModelPart;copyTransform(Lnet/minecraft/client/model/ModelPart;)V"

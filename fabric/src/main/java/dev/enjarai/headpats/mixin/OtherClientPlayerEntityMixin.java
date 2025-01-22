@@ -21,7 +21,7 @@ public abstract class OtherClientPlayerEntityMixin extends LivingEntityMixin {
         if (y > height - 0.5 && player instanceof ClientPlayerEntity clientPlayer && player.getMainHandStack().isEmpty() && squaredDistanceTo(player) < 1.5*1.5) {
             ClientPlayNetworking.send(new PettingC2SPacket(getId()));
             Headpats.PETTING_COMPONENT.get(clientPlayer).startPetting((PlayerEntity) (Object) this);
-            cir.setReturnValue(ActionResult.success(false));
+            cir.setReturnValue(ActionResult.SUCCESS);
         }
     }
 }
