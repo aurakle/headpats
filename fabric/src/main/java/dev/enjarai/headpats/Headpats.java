@@ -39,8 +39,6 @@ public class Headpats implements ModInitializer, ClientModInitializer, EntityCom
 
 		PayloadTypeRegistry.playC2S().register(PettingC2SPacket.ID, PettingC2SPacket.PACKET_CODEC);
 		ServerPlayNetworking.registerGlobalReceiver(PettingC2SPacket.ID, PettingC2SPacket::handle);
-
-		RenderStateUpdateEvent.get(PlayerEntity.class).register(PetRendering::updateRenderState);
 	}
 
 	@Override
@@ -64,6 +62,8 @@ public class Headpats implements ModInitializer, ClientModInitializer, EntityCom
 				}
 			}
 		});
+
+		RenderStateUpdateEvent.get(PlayerEntity.class).register(PetRendering::updateRenderState);
 	}
 
 	@Override

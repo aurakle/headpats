@@ -6,6 +6,9 @@ pluginManagement {
 		}
 		mavenCentral()
 		gradlePluginPortal()
+		maven {
+			url = "https://repo.papermc.io/repository/maven-public/"
+		}
 	}
 }
 
