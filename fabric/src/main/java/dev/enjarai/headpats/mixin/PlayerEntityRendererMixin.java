@@ -23,6 +23,6 @@ public class PlayerEntityRendererMixin {
             )
     )
     private void fixFunnyAnimation(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, Identifier skinTexture, ModelPart arm, boolean sleeveVisible, CallbackInfo ci) {
-        PetRendering.fixFirstPersonAngles(MinecraftClient.getInstance().player, MinecraftClient.getInstance().getRenderTickCounter().getTickDelta(true), arm);
+        PetRendering.fixFirstPersonAngles(MinecraftClient.getInstance().player, MinecraftClient.getInstance().getRenderTickCounter().getDynamicDeltaTicks(), arm);
     }
 }

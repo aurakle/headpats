@@ -99,7 +99,7 @@ public class PettingComponent implements AutoSyncedComponent, ServerTickingCompo
         prevPettedMultiplier = pettedMultiplier;
         if (isBeingPet()) {
             if (pettedTicks % 40 == 0 && ModConfig.INSTANCE.pettedPlayersPurr) {
-                player.getWorld().playSoundFromEntity(player, SoundEvents.ENTITY_CAT_PURR,
+                player.getWorld().playSoundFromEntityClient(player, SoundEvents.ENTITY_CAT_PURR,
                         SoundCategory.PLAYERS, 1f, player.getSoundPitch());
             }
 
